@@ -17,28 +17,27 @@ func Simulate() error {
 	var canaryDir string
 
 	// Step 1: Find a folder that matches the pattern
-	err := filepath.WalkDir(root, func(path string, d os.DirEntry, err error) error {
-		if err != nil || !d.IsDir() {
-			return nil
-		}
-		if strings.HasPrefix(d.Name(), "aaAntiRansomElastic-DO-NOT-TOUCH-") {
-			canaryDir = path
-			return filepath.SkipDir // Found the first match, stop
-		}
-		return nil
-	})
+	entries, err := os.ReadDir(root)
 	if err != nil {
-		return fmt.Errorf("error scanning for canary directory: %w", err)
+		return fmt.Errorf("error reading root directory: %w", err)
 	}
+
+	for _, entry := range entries {
+	if entry.IsDir() && strings.HasPrefix(entry.Name(), "aaAntiRansomElastic-DO-NOT-TOUCH-") {
+		canaryDir = filepath.Join(root, entry.Name())
+		break
+		}
+	}
+
 	if canaryDir == "" {
-		return fmt.Errorf("no Elastic canary folder found")
+		return fmt.Errorf("no Elastic canary folder found in %s", root)
 	}
 
 	log.Printf("Found canary directory: %s", canaryDir)
 
 	// Step 2: Find a matching file in that folder
 	var originalFile string
-	entries, err := os.ReadDir(canaryDir)
+	entries, err = os.ReadDir(canaryDir)
 	if err != nil {
 		return fmt.Errorf("error reading canary directory: %w", err)
 	}
