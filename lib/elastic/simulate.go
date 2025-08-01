@@ -42,7 +42,7 @@ func Simulate() error {
 		return fmt.Errorf("error reading canary directory: %w", err)
 	}
 	for _, entry := range entries {
-		if !entry.IsDir() && strings.HasPrefix(entry.Name(), "AntiRansomElastic-DO-NOT-TOUCH-") && strings.HasSuffix(entry.Name(), ".txt") {
+		if !entry.IsDir() && strings.HasPrefix(entry.Name(), "AntiRansomElastic-DO-NOT-TOUCH-") && strings.HasSuffix(entry.Name(), ".docx") {
 			originalFile = filepath.Join(canaryDir, entry.Name())
 			break
 		}
