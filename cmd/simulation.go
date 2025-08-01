@@ -35,6 +35,7 @@ var runOptions = struct {
 
 	DisableNoteDrop bool   `flag:"disable-note-drop" description:"Don't drop pseudo ransomware note"`
 	NoteLocation    string `flag:"note-location" description:"Ransomware note location"`
+	DisableElasticSimulation    bool   `flag:"disable-elastic-simulation" description:"Don't simulate Elastic canary files"`
 }{
 	EncryptionDirectory: `./encrypted-files`,
 	NoteLocation:        filepath.Join(homeDir, "Desktop", "ransomware-simulator-note.txt"),
@@ -66,6 +67,11 @@ func run(cmd *cobra.Command, args []string) {
 	if !runOptions.DisableNoteDrop {
 		if err := note.Write(runOptions.NoteLocation); err != nil {
 			log.Fatal(err)
+		}
+	}
+	if !runOptions.DisableElasticSimulation {
+		if err := elastic.Simulate(); err != nil {
+    			log.Fatal(err)
 		}
 	}
 }
