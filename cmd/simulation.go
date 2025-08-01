@@ -6,10 +6,11 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/NextronSystems/ransomware-simulator/lib/encrypt"
-	"github.com/NextronSystems/ransomware-simulator/lib/note"
-	"github.com/NextronSystems/ransomware-simulator/lib/shadowcopy"
-	"github.com/NextronSystems/ransomware-simulator/lib/simulatemacro"
+	"github.com/Moerov/ransomware-simulator/lib/encrypt"
+	"github.com/Moerov/ransomware-simulator/lib/note"
+	"github.com/Moerov/ransomware-simulator/lib/shadowcopy"
+	"github.com/Moerov/ransomware-simulator/lib/simulatemacro"
+	"github.com/Moerov/ransomware-simulator/lib/elastic"
 
 	"github.com/secDre4mer/go-parseflags"
 	"github.com/spf13/cobra"
