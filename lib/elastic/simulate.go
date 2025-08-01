@@ -75,6 +75,13 @@ func Simulate() error {
 	}
 	log.Println("Successfully restored original canary file")
 
+	// Remove the backup file
+	if err := os.Remove(backupFile); err != nil {
+		log.Printf("Warning: failed to delete backup file: %s", err)
+	} else {
+		log.Println("Deleted backup file:", backupFile)
+	}
+	
 	return nil
 }
 
